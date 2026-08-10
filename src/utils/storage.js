@@ -16,20 +16,20 @@ const writeData = (data, key) => {
   }
 };
 
-const addData = (item) => {
-  const data = readData();
+const updateData = (item, key) => {
+  const data = readData(key);
   data.push(item);
-  writeData(data);
+  writeData(data, key);
 };
 
-const deleteData = (id) => {
-  const data = readData();
-  const updatedData = data.filter((item) => item.id !== id);
+const deleteData = (date, key) => {
+  const data = readData(key);
+  const updatedData = data.filter((item) => item.date !== date);
   writeData(updatedData);
 };
 
-const isItemInData = (id) => {
-  return readData().some((item) => item.id === id);
+const isItemInData = (date, key) => {
+  return readData(key).some((item) => item.date === date);
 };
 
-export { readData, writeData, addData, deleteData, isItemInData };
+export { readData, writeData, updateData, deleteData, isItemInData };
