@@ -1,0 +1,36 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+@plugin "daisyui/theme" {
+  name: "gedankensalat";
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+
+  --color-primary: #5b8c51;
+  --color-primary-content: #faf7f0;
+
+  --color-secondary: #e07856;
+  --color-secondary-content: #faf7f0;
+
+  --color-accent: #efc94c;
+  --color-accent-content: #2f3b2a;
+
+  --color-neutral: #2f3b2a;
+  --color-neutral-content: #faf7f0;
+
+  --color-base-100: #faf7f0;
+  --color-base-200: #f0ebdd;
+  --color-base-300: #e5dcc5;
+  --color-base-content: #2f3b2a;
+
+  --color-info: #5b8ca8;
+  --color-success: #6b9b5e;
+  --color-warning: #efc94c;
+  --color-error: #c0553d;
+
+  --radius-selector: 1rem;
+  --radius-field: 0.5rem;
+  --radius-box: 1rem;
+  --border: 1px;
+}

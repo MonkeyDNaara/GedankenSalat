@@ -1,7 +1,15 @@
-import { useState, useEffect } from "react";
+import Header from "./components/Header.jsx";
+import EntryList from "./components/EntryList.jsx";
+import Footer from "./components/Footer.jsx";
 
-function App() {
-  return <>Test</>;
-}
+const App = () => {
+  return (
+    <>
+      <Header />
+      <EntryList />
+      <Footer />
+    </>
+  );
+};
 
 export default App;
