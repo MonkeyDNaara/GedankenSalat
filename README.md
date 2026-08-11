@@ -1,16 +1,46 @@
-# React + Vite
+# GedankenSalat
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+German for "thought salad" — a messy jumble of thoughts. This is a little journaling app for exactly that: dumping down whatever's in your head as quick entries instead of trying to organize them first. Built to get proper practice with React and Tailwind after doing a few plain HTML/JS projects.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Create, view, edit and delete journal entries
+- Entry list view + a detail view for a single entry (`EntryList`, `EntryDetails`)
+- Modal-based entry form for adding/editing without leaving the page
+- Everything persists to `localStorage` — no backend, refresh-proof
 
-## React Compiler
+## Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+React 19, Vite, Tailwind CSS v4, DaisyUI for the component styling on top of Tailwind.
 
-## Expanding the ESLint configuration
+## Structure
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```
+src/
+├── App.jsx
+├── components/
+│   ├── Header.jsx
+│   ├── Footer.jsx
+│   ├── EntryList.jsx      # renders all entries
+│   ├── EntryCard.jsx      # single entry preview
+│   ├── EntryDetails.jsx   # full entry view
+│   ├── EntryForm.jsx      # create/edit form
+│   └── Modal.jsx
+└── utils/
+    └── storage.js          # localStorage read/write helpers
+```
+
+## Running it
+
+```bash
+npm install
+npm run dev
+```
+
+## Why I built it this way
+
+Wanted a project small enough to fully finish (no backend, no auth, no API calls) so I could focus purely on component structure — figuring out what's a "smart" component vs. a dumb presentational one, and where state should actually live. `storage.js` exists specifically so the components don't talk to `localStorage` directly, which felt like a more realistic pattern than what I'd normally reach for on a first React project.
+
+## What's next
+
+Thinking about adding tags/categories for entries and maybe a search bar once the list gets long — right now it's a flat list which works fine for testing but won't scale for actual daily use.

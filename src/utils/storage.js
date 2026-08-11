@@ -1,3 +1,5 @@
+// data structe: {id: "generated with crypto.randomUUID()", title: "...", date: "xxx", img: "url", content: "text"}
+
 const readData = (key) => {
   try {
     const data = localStorage.getItem(key);
@@ -16,20 +18,30 @@ const writeData = (data, key) => {
   }
 };
 
-const updateData = (item, key) => {
-  const data = readData(key);
-  data.push(item);
-  writeData(data, key);
+const isItemInData = (date, key) => {
+  return readData(key).some((item) => item.date === date);
+};
+
+const addData = (item, key) => {
+  if (!isItemInData(item, key)) {
+    const data = readData(key);
+    data.push(item);
+    writeData(data, key);
+  } else {
+    console.error("Entry is already in Storage.");
+  }
 };
 
 const deleteData = (date, key) => {
   const data = readData(key);
   const updatedData = data.filter((item) => item.date !== date);
-  writeData(updatedData);
+  writeData(updatedData, key);
 };
 
-const isItemInData = (date, key) => {
-  return readData(key).some((item) => item.date === date);
+const updateData = (item, key) => {
+  const data = readData(key);
+  // update item with the right key
+  writeData(data, key);
 };
 
-export { readData, writeData, updateData, deleteData, isItemInData };
+export { readData, writeData, addData, deleteData, isItemInData, updateData };
