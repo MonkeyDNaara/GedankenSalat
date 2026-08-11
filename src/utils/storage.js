@@ -1,8 +1,10 @@
-// data structe: {id: "generated with crypto.randomUUID()", title: "...", date: "xxx", img: "url", content: "text"}
+// data structe: {id: "generated with crypto.randomUUID()", title: "...", date: "xxx", imgUrl: "url", content: "text"}
 
-const readData = (key) => {
+import { STORAGE_KEY } from "./config.js";
+
+const readData = () => {
   try {
-    const data = localStorage.getItem(key);
+    const data = localStorage.getItem(STORAGE_KEY);
     return data ? JSON.parse(data) : [];
   } catch (error) {
     console.error("Error reading from localStorage:", error);
@@ -10,38 +12,40 @@ const readData = (key) => {
   }
 };
 
-const writeData = (data, key) => {
+const writeData = (data) => {
   try {
-    localStorage.setItem(key, JSON.stringify(data));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   } catch (error) {
     console.error("Error saving to localStorage:", error);
   }
 };
 
-const isItemInData = (date, key) => {
-  return readData(key).some((item) => item.date === date);
+const isItemInData = (date) => {
+  return readData().some((item) => item.date === date);
 };
 
-const addData = (item, key) => {
-  if (!isItemInData(item, key)) {
-    const data = readData(key);
+const addData = (item) => {
+  if (!isItemInData(item.date)) {
+    const data = readData();
     data.push(item);
-    writeData(data, key);
+    writeData(data);
   } else {
     console.error("Entry is already in Storage.");
   }
 };
 
-const deleteData = (date, key) => {
-  const data = readData(key);
-  const updatedData = data.filter((item) => item.date !== date);
-  writeData(updatedData, key);
+const deleteData = (id) => {
+  const data = readData();
+  const updatedData = data.filter((item) => item.id !== id);
+  writeData(updatedData);
 };
 
-const updateData = (item, key) => {
-  const data = readData(key);
-  // update item with the right key
-  writeData(data, key);
+const updateData = (item) => {
+  const data = readData();
+  const updatedData = data.map((entry) =>
+    entry.id === item.id ? item : entry,
+  );
+  writeData(updatedData);
 };
 
 export { readData, writeData, addData, deleteData, isItemInData, updateData };

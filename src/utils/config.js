@@ -1,4 +1,3 @@
-const STORAGE_KEY_ENTRY = "entries";
-const STORAGE_KEY_MODAL = "modal";
+const STORAGE_KEY = "entries";
 
-export { STORAGE_KEY_ENTRY, STORAGE_KEY_MODAL };
+export { STORAGE_KEY };
