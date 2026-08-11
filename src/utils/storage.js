@@ -1,5 +1,3 @@
-// data structe: {id: "generated with crypto.randomUUID()", title: "...", date: "xxx", imgUrl: "url", content: "text"}
-
 import { STORAGE_KEY } from "./config.js";
 
 const readData = () => {
