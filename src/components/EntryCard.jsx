@@ -4,7 +4,7 @@ const EntryCard = ({ entry }) => {
   const { title, date, imgUrl } = entry;
 
   return (
-    <div className="card bg-base-100 w-50 shadow-md shadow-black m-4">
+    <div className="card bg-base-100 w-50 shadow-md shadow-black m-4 hover:scale-102 cursor-pointer">
       <figure>
         <img src={imgUrl} alt="random picture" className="w-full h-40" />
       </figure>

@@ -13,7 +13,7 @@ const EntryForm = ({ handleAddEntry }) => {
   return (
     <div>
       <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4 m-2">
-        <legend className="fieldset fieldset-legend text-xl">Entry</legend>
+        <label className="fieldset fieldset-legend text-xl">Entry</label>
         <form className="grid" onSubmit={handleForm}>
           <div className="pb-2">
             <label htmlFor="title" className="label">
