@@ -2,17 +2,22 @@ import Header from "./components/Header.jsx";
 import EntryList from "./components/EntryList.jsx";
 import Footer from "./components/Footer.jsx";
 import { useEffect, useState } from "react";
-import { readData } from "./utils/storage.js";
+import { addData, readData } from "./utils/storage.js";
 
 const App = () => {
   const [entries, setEntries] = useState([]);
+
+  const handleAddEntry = (newEntry) => {
+    addData(newEntry);
+    setEntries((prev) => [...prev, newEntry]);
+  };
 
   useEffect(() => setEntries(readData()), []);
 
   return (
     <>
       <Header />
-      <EntryList entries={entries} />
+      <EntryList entries={entries} handleAddEntry={handleAddEntry} />
       <Footer />
     </>
   );

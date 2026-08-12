@@ -1,6 +1,4 @@
-import { addData } from "../utils/storage.js";
-
-const EntryForm = () => {
+const EntryForm = ({ handleAddEntry }) => {
   const handleForm = (e) => {
     e.preventDefault();
     const newEntry = {
@@ -10,7 +8,7 @@ const EntryForm = () => {
       imgUrl: `${e.target.imgUrl.value}`,
       content: `${e.target.content.value}`,
     };
-    addData(newEntry);
+    handleAddEntry(newEntry);
   };
   return (
     <div>
