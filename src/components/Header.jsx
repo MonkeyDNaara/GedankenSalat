@@ -1,4 +1,8 @@
 const Header = ({ handleNewEntry }) => {
+  const handleNewEntryBtn = () => {
+    handleNewEntry("new");
+  };
+
   return (
     <header>
       <div className="navbar bg-primary flex justify-between">
@@ -6,7 +10,7 @@ const Header = ({ handleNewEntry }) => {
         <button
           className="btn btn-secondary"
           onClick={() => {
-            handleNewEntry("new");
+            handleNewEntryBtn();
           }}
         >
           + Add entry

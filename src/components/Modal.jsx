@@ -4,7 +4,13 @@ import { useEffect, useState } from "react";
 import AlertModal from "./AlertModal";
 import EntryForm from "./EntryForm";
 
-const Modal = ({ errorMessage, handleError, newEntry, handleAddEntry }) => {
+const Modal = ({
+  errorMessage,
+  handleError,
+  newEntry,
+  handleAddEntry,
+  handleNewEntry,
+}) => {
   const [modal, setModal] = useState("hidden");
 
   useEffect(() => {
@@ -18,7 +24,7 @@ const Modal = ({ errorMessage, handleError, newEntry, handleAddEntry }) => {
   const handleEsc = () => {
     setModal("hidden");
     handleError("");
-    handleAddEntry("");
+    handleNewEntry("");
   };
 
   return (

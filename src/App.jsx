@@ -26,7 +26,13 @@ const App = () => {
   return (
     <>
       <Header handleNewEntry={setNewEntry} />
-      <Modal errorMessage={error} handleError={setError} newEntry={newEntry} />
+      <Modal
+        errorMessage={error}
+        handleError={setError}
+        newEntry={newEntry}
+        handleAddEntry={handleAddEntry}
+        handleNewEntry={setNewEntry}
+      />
       <EntryList entries={entries} handleAddEntry={handleAddEntry} />
       <Footer />
     </>
