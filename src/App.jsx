@@ -8,8 +8,10 @@ const App = () => {
   const [entries, setEntries] = useState([]);
 
   const handleAddEntry = (newEntry) => {
-    addData(newEntry);
-    setEntries((prev) => [...prev, newEntry]);
+    const wasAdded = addData(newEntry);
+    if (wasAdded) {
+      setEntries((prev) => [...prev, newEntry]);
+    }
   };
 
   useEffect(() => setEntries(readData()), []);

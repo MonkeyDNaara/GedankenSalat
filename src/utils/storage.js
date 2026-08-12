@@ -27,8 +27,10 @@ const addData = (item) => {
     const data = readData();
     data.push(item);
     writeData(data);
+    return true;
   } else {
     console.error("Entry is already in Storage.");
+    return false;
   }
 };
 
