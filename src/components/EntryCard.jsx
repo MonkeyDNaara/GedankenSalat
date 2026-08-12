@@ -4,10 +4,7 @@ const EntryCard = ({ entry }) => {
   const { title, date, imgUrl } = entry;
 
   return (
-    <div
-      className="card bg-base-100 w-50 shadow-md shadow-black m-4"
-      onClick={console.log(`${title} card clicked.`)}
-    >
+    <div className="card bg-base-100 w-50 shadow-md shadow-black m-4">
       <figure>
         <img src={imgUrl} alt="random picture" className="w-full h-40" />
       </figure>
