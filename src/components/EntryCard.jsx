@@ -4,15 +4,16 @@ const EntryCard = ({ entry }) => {
   const { title, date, imgUrl } = entry;
 
   return (
-    <div>
-      <div className="card bg-base-100 w-50 shadow-md shadow-black m-4">
-        <figure>
-          <img src={imgUrl} alt="random picture" className="w-full h-40" />
-        </figure>
-        <div className="card card-body">
-          <h2 className="card">{title}</h2>
-          <div>{date}</div>
-        </div>
+    <div
+      className="card bg-base-100 w-50 shadow-md shadow-black m-4"
+      onClick={console.log(`${title} card clicked.`)}
+    >
+      <figure>
+        <img src={imgUrl} alt="random picture" className="w-full h-40" />
+      </figure>
+      <div className="card card-body">
+        <h2 className="card">{title}</h2>
+        <div>{date}</div>
       </div>
     </div>
   );
