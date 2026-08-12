@@ -10,19 +10,19 @@ const Modal = ({
   newEntry,
   handleAddEntry,
   handleNewEntry,
+  modalState,
+  handleModalState,
 }) => {
-  const [modal, setModal] = useState("hidden");
-
   useEffect(() => {
-    errorMessage ? setModal("error") : setModal("hidden");
+    errorMessage ? handleModalState("error") : handleModalState("hidden");
   }, [errorMessage]);
 
   useEffect(() => {
-    newEntry ? setModal("new") : setModal("hidden");
+    newEntry ? handleModalState("new") : handleModalState("hidden");
   }, [newEntry]);
 
   const handleEsc = () => {
-    setModal("hidden");
+    handleModalState("hidden");
     handleError("");
     handleNewEntry("");
   };
@@ -30,7 +30,7 @@ const Modal = ({
   return (
     <div
       id="searchModal"
-      className={`fixed inset-0 bg-black/50 backdrop-blur-sm ${modal == "hidden" ? "hidden" : ""} justify-center pt-20 px-4 z-50`}
+      className={`fixed inset-0 bg-black/50 backdrop-blur-sm ${modalState == "hidden" ? "hidden" : ""} justify-center pt-20 px-4 z-50`}
     >
       <div
         id="modalBox"
@@ -45,12 +45,12 @@ const Modal = ({
           ESC
         </button>
         <div
-          className={`flex justify-center p-4 ${modal == "error" ? "" : "hidden"}`}
+          className={`flex justify-center p-4 ${modalState == "error" ? "" : "hidden"}`}
         >
           {errorMessage && <AlertModal message={errorMessage} />}
         </div>
         <div
-          className={`flex justify-center p-4 ${modal == "new" ? "" : "hidden"}`}
+          className={`flex justify-center p-4 ${modalState == "new" ? "" : "hidden"}`}
         >
           {newEntry && <EntryForm handleAddEntry={handleAddEntry} />}
         </div>
