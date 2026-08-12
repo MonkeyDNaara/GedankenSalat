@@ -1,5 +1,3 @@
-// data structe: {id: "generated with crypto.randomUUID()", title: "...", date: "xxx", imgUrl: "url", content: "text"}
-
 import { STORAGE_KEY } from "./config.js";
 
 const readData = () => {
@@ -29,8 +27,10 @@ const addData = (item) => {
     const data = readData();
     data.push(item);
     writeData(data);
+    return true;
   } else {
     console.error("Entry is already in Storage.");
+    return false;
   }
 };
 
