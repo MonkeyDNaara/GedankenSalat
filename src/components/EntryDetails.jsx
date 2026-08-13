@@ -2,7 +2,7 @@ import { use } from "react";
 import { EntriesContext } from ".././contexts/EntriesContext.jsx";
 import { StateContext } from ".././contexts/StateContext.jsx";
 
-const EntryDetails = ({ escFunction }) => {
+const EntryDetails = ({ escFunction, handleDeleteEntry }) => {
   const { entries } = use(EntriesContext);
   const { showDetails } = use(StateContext);
   const entriesFilter = entries.filter((entry) => entry.id == showDetails);
@@ -35,7 +35,14 @@ const EntryDetails = ({ escFunction }) => {
       <p className="card-body m-2">{content}</p>
       <div className="flex align-center justify-evenly mx-2 mt-2 mb-4">
         <button className="card card-actions btn btn-primary">Edit</button>
-        <button className="card card-actions btn btn-secondary">Delete</button>
+        <button
+          className="card card-actions btn btn-secondary"
+          onClick={() => {
+            handleDeleteEntry(showDetails);
+          }}
+        >
+          Delete
+        </button>
       </div>
     </div>
   );

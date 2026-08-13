@@ -6,7 +6,7 @@ import EntryForm from "./EntryForm";
 import EntryDetails from "./EntryDetails";
 import { StateContext } from ".././contexts/StateContext.jsx";
 
-const Modal = ({ handleAddEntry }) => {
+const Modal = ({ handleAddEntry, handleDeleteEntry }) => {
   const {
     modal,
     setModal,
@@ -61,7 +61,12 @@ const Modal = ({ handleAddEntry }) => {
         <div
           className={`flex justify-center p-4 ${modal == "details" ? "" : "hidden"}`}
         >
-          {showDetails && <EntryDetails escFunction={handleEsc} />}
+          {showDetails && (
+            <EntryDetails
+              escFunction={handleEsc}
+              handleDeleteEntry={handleDeleteEntry}
+            />
+          )}
         </div>
       </div>
     </div>

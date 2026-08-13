@@ -9,7 +9,6 @@ const EntryCard = ({ entry }) => {
   const handleDetails = () => {
     setShowDetails(id);
     setModal("details");
-    console.log("show details");
   };
 
   return (
