@@ -30,9 +30,9 @@ const EntryDetails = ({ escFunction }) => {
         </div>
       </div>
       <figure>
-        <img src={imgUrl} alt="random picture" className="w-90 h-50" />
+        <img src={imgUrl} alt="random picture" className="w-90 h-60" />
       </figure>
-      <p className="card-body">{content}</p>
+      <p className="card-body m-2">{content}</p>
       <div className="flex align-center justify-evenly mx-2 mt-2 mb-4">
         <button className="card card-actions btn btn-primary">Edit</button>
         <button className="card card-actions btn btn-secondary">Delete</button>

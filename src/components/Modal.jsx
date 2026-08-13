@@ -6,7 +6,7 @@ import EntryForm from "./EntryForm";
 import EntryDetails from "./EntryDetails";
 import { StateContext } from ".././contexts/StateContext.jsx";
 
-const Modal = ({ handleAddEntry, entry }) => {
+const Modal = ({ handleAddEntry }) => {
   const {
     modal,
     setModal,

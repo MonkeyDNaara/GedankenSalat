@@ -1,9 +1,17 @@
 import { STORAGE_KEY } from "./config.js";
 
+const compareDate = (a, b) => {
+  const dateA = new Date(a.date);
+  const dateB = new Date(b.date);
+  return dateB - dateA;
+};
+
 const readData = () => {
   try {
     const data = localStorage.getItem(STORAGE_KEY);
-    return data ? JSON.parse(data) : [];
+    const parseData = data ? JSON.parse(data) : [];
+    parseData.sort(compareDate);
+    return parseData;
   } catch (error) {
     console.error("Error reading from localStorage:", error);
     return [];
