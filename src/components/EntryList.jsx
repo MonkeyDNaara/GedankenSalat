@@ -1,9 +1,11 @@
 import EntryCard from "./EntryCard";
 import { StateContext } from ".././contexts/StateContext.jsx";
+import { EntriesContext } from ".././contexts/EntriesContext.jsx";
 import { use } from "react";
 
-const EntryList = ({ entries }) => {
+const EntryList = () => {
   const { setModal, setShowDetails } = use(StateContext);
+  const { entries } = use(EntriesContext);
 
   const handleDetails = () => {
     setShowDetails("details");

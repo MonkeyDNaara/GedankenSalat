@@ -3,11 +3,14 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 import StateContextProvider from "./contexts/StateContextProvider.jsx";
+import EntriesContextProvider from "./contexts/EntriesContextProvider.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <StateContextProvider>
-      <App />
-    </StateContextProvider>
+    <EntriesContextProvider>
+      <StateContextProvider>
+        <App />
+      </StateContextProvider>
+    </EntriesContextProvider>
   </StrictMode>,
 );
