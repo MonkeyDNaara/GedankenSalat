@@ -1,59 +1,55 @@
 // modal state = ["hidden", "error", "new", "edit", "details"]
 
-import { useEffect } from "react";
+import { useEffect, use } from "react";
 import AlertModal from "./AlertModal";
 import EntryForm from "./EntryForm";
 import EntryDetails from "./EntryDetails";
+import { StateContext } from ".././contexts/StateContext.jsx";
 
-const Modal = ({
-  errorMessage,
-  handleError,
-  newEntry,
-  handleAddEntry,
-  handleNewEntry,
-  modalState,
-  handleModalState,
-  detailsState,
-  handleShowDetails,
-  entry,
-}) => {
-  useEffect(() => {
-    errorMessage ? handleModalState("error") : handleModalState("hidden");
-  }, [errorMessage]);
+const Modal = ({ handleAddEntry, entry }) => {
+  const {
+    modal,
+    setModal,
+    error,
+    setError,
+    newEntry,
+    setNewEntry,
+    showDetails,
+    setShowDetails,
+  } = use(StateContext);
 
   useEffect(() => {
-    newEntry ? handleModalState("new") : handleModalState("hidden");
+    error ? setModal("error") : setModal("hidden");
+  }, [error]);
+
+  useEffect(() => {
+    newEntry ? setModal("new") : setModal("hidden");
   }, [newEntry]);
 
   useEffect(() => {
-    detailsState ? handleModalState("details") : handleModalState("hidden");
-  }, [detailsState]);
+    showDetails ? setModal("details") : setModal("hidden");
+  }, [showDetails]);
 
   const handleEsc = () => {
-    handleModalState("hidden");
-    handleError("");
-    handleNewEntry("");
-    handleShowDetails("");
+    setModal("hidden");
+    setError("");
+    setNewEntry("");
+    setShowDetails("");
   };
 
   return (
     <div
       id="searchModal"
-      className={`fixed inset-0 bg-black/50 backdrop-blur-sm ${modalState == "hidden" ? "hidden" : ""} justify-center pt-20 px-4 z-50`}
+      className={`fixed inset-0 bg-black/50 backdrop-blur-sm ${modal == "hidden" ? "hidden" : ""} justify-center pt-20 px-4 z-50`}
     >
-      <div
-        id="modalBox"
-        className="bg-gray w-full max-h-[85vh] flex flex-col rounded-xl shadow-2xl border border-slate-200"
-      >
+      <div id="modalBox" className="">
         <div
-          className={`flex justify-center p-4 ${modalState == "error" ? "" : "hidden"}`}
+          className={`flex justify-center p-4 ${modal == "error" ? "" : "hidden"}`}
         >
-          {errorMessage && (
-            <AlertModal message={errorMessage} escFunction={handleEsc} />
-          )}
+          {error && <AlertModal message={error} escFunction={handleEsc} />}
         </div>
         <div
-          className={`flex justify-center p-4 ${modalState == "new" ? "" : "hidden"}`}
+          className={`flex justify-center p-4 ${modal == "new" ? "" : "hidden"}`}
         >
           {newEntry && (
             <EntryForm
@@ -63,9 +59,9 @@ const Modal = ({
           )}
         </div>
         <div
-          className={`flex justify-center p-4 ${modalState == "details" ? "" : "hidden"}`}
+          className={`flex justify-center p-4 ${modal == "details" ? "" : "hidden"}`}
         >
-          {detailsState && (
+          {showDetails && (
             <EntryDetails entry={entry} escFunction={handleEsc} />
           )}
         </div>

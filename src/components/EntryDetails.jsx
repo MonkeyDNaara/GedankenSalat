@@ -25,6 +25,10 @@ const EntryDetails = ({ entry, escFunction }) => {
       <p className="card card-body text-primary-content text-md m-2">
         {content}
       </p>
+      <div>
+        <button className="card card-actions btn btn-primary">Edit</button>
+        <button className="card card-actions btn btn-secondary">Delete</button>
+      </div>
     </div>
   );
 };

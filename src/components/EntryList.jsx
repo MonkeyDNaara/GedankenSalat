@@ -1,6 +1,15 @@
 import EntryCard from "./EntryCard";
+import { StateContext } from ".././contexts/StateContext.jsx";
+import { use } from "react";
 
-const EntryList = ({ entries, handleShowDetails, handleModalState }) => {
+const EntryList = ({ entries }) => {
+  const { setModal, setShowDetails } = use(StateContext);
+
+  const handleDetails = () => {
+    setShowDetails("details");
+    setModal("details");
+  };
+
   return (
     <div className="bg-base-200 mb-auto">
       <h2 className="text-2xl text-accent-content p-4">
@@ -12,7 +21,7 @@ const EntryList = ({ entries, handleShowDetails, handleModalState }) => {
             entry={entry}
             key={entry.id}
             onClick={() => {
-              handleShowDetails("details");
+              handleDetails();
             }}
           />
         ))}
