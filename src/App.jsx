@@ -11,6 +11,7 @@ const App = () => {
   const [error, setError] = useState("");
   const [newEntry, setNewEntry] = useState("");
   const [editEntry, setEditEntry] = useState("");
+  const [showDetails, setShowDetails] = useState("");
 
   const handleAddEntry = (newEntry) => {
     const wasAdded = addData(newEntry);
@@ -36,8 +37,15 @@ const App = () => {
         handleNewEntry={setNewEntry}
         modalState={modal}
         handleModalState={setModal}
+        detailsState={showDetails}
+        handleShowDetails={setShowDetails}
       />
-      <EntryList entries={entries} handleAddEntry={handleAddEntry} />
+      <EntryList
+        entries={entries}
+        handleAddEntry={handleAddEntry}
+        handleShowDetails={setShowDetails}
+        handleModalState={setModal}
+      />
       <Footer />
     </div>
   );

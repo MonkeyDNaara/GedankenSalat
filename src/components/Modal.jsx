@@ -1,8 +1,9 @@
-// modal state = ["hidden", "error", "new", "edit"]
+// modal state = ["hidden", "error", "new", "edit", "details"]
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import AlertModal from "./AlertModal";
 import EntryForm from "./EntryForm";
+import EntryDetails from "./EntryDetails";
 
 const Modal = ({
   errorMessage,
@@ -12,6 +13,9 @@ const Modal = ({
   handleNewEntry,
   modalState,
   handleModalState,
+  detailsState,
+  handleShowDetails,
+  entry,
 }) => {
   useEffect(() => {
     errorMessage ? handleModalState("error") : handleModalState("hidden");
@@ -21,10 +25,15 @@ const Modal = ({
     newEntry ? handleModalState("new") : handleModalState("hidden");
   }, [newEntry]);
 
+  useEffect(() => {
+    detailsState ? handleModalState("details") : handleModalState("hidden");
+  }, [detailsState]);
+
   const handleEsc = () => {
     handleModalState("hidden");
     handleError("");
     handleNewEntry("");
+    handleShowDetails("");
   };
 
   return (
@@ -36,23 +45,29 @@ const Modal = ({
         id="modalBox"
         className="bg-gray w-full max-h-[85vh] flex flex-col rounded-xl shadow-2xl border border-slate-200"
       >
-        <button
-          type="button"
-          id="modalCloseButton"
-          className="ml-auto text-primary-content hover:text-white text-sm px-4 py-4 bg-brand-purple rounded cursor-pointer hover:bg-brand-dark-hover"
-          onClick={() => handleEsc()}
-        >
-          ESC
-        </button>
         <div
           className={`flex justify-center p-4 ${modalState == "error" ? "" : "hidden"}`}
         >
-          {errorMessage && <AlertModal message={errorMessage} />}
+          {errorMessage && (
+            <AlertModal message={errorMessage} escFunction={handleEsc} />
+          )}
         </div>
         <div
           className={`flex justify-center p-4 ${modalState == "new" ? "" : "hidden"}`}
         >
-          {newEntry && <EntryForm handleAddEntry={handleAddEntry} />}
+          {newEntry && (
+            <EntryForm
+              handleAddEntry={handleAddEntry}
+              escFunction={handleEsc}
+            />
+          )}
+        </div>
+        <div
+          className={`flex justify-center p-4 ${modalState == "details" ? "" : "hidden"}`}
+        >
+          {detailsState && (
+            <EntryDetails entry={entry} escFunction={handleEsc} />
+          )}
         </div>
       </div>
     </div>

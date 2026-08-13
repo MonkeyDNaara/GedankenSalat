@@ -1,4 +1,4 @@
-const EntryForm = ({ handleAddEntry }) => {
+const EntryForm = ({ handleAddEntry, escFunction }) => {
   const handleForm = (e) => {
     e.preventDefault();
     const newEntry = {
@@ -13,7 +13,17 @@ const EntryForm = ({ handleAddEntry }) => {
   return (
     <div>
       <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4 m-2">
-        <label className="fieldset fieldset-legend text-xl">Entry</label>
+        <div className="flex justify-between align-text-top">
+          <label className="fieldset fieldset-legend text-lg">Entry</label>
+          <button
+            type="button"
+            id="modalCloseButton"
+            className="ml-auto hover:text-white text-sm pr-2 rounded cursor-pointer hover:bg-brand-dark-hover"
+            onClick={() => escFunction()}
+          >
+            X
+          </button>
+        </div>
         <form className="grid" onSubmit={handleForm}>
           <div className="pb-2">
             <label htmlFor="title" className="label">
