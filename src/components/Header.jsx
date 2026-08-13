@@ -1,6 +1,12 @@
-const Header = ({ handleNewEntry }) => {
+import { use } from "react";
+import { StateContext } from ".././contexts/StateContext.jsx";
+
+const Header = () => {
+  const { setNewEntry, setModal } = use(StateContext);
+
   const handleNewEntryBtn = () => {
-    handleNewEntry("new");
+    setNewEntry("new");
+    setModal("new");
   };
 
   return (

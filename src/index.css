@@ -1,6 +1,12 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+@plugin "daisyui" {
+  themes:
+    gedankensalat --default,
+    forest;
+}
+
 @plugin "daisyui/theme" {
   name: "gedankensalat";
   default: true;

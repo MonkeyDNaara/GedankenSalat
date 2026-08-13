@@ -1,58 +1,85 @@
-// modal state = ["hidden", "error", "new", "edit"]
+// modal state = ["hidden", "error", "new", "edit", "details"]
 
-import { useEffect, useState } from "react";
+import { useEffect, use } from "react";
 import AlertModal from "./AlertModal";
 import EntryForm from "./EntryForm";
+import EntryDetails from "./EntryDetails";
+import { StateContext } from ".././contexts/StateContext.jsx";
 
-const Modal = ({
-  errorMessage,
-  handleError,
-  newEntry,
-  handleAddEntry,
-  handleNewEntry,
-  modalState,
-  handleModalState,
-}) => {
-  useEffect(() => {
-    errorMessage ? handleModalState("error") : handleModalState("hidden");
-  }, [errorMessage]);
+const Modal = ({ handleAddEntry, handleDeleteEntry, handleEditEntry }) => {
+  const {
+    modal,
+    setModal,
+    error,
+    setError,
+    newEntry,
+    setNewEntry,
+    showDetails,
+    setShowDetails,
+    editEntry,
+    setEditEntry,
+  } = use(StateContext);
 
   useEffect(() => {
-    newEntry ? handleModalState("new") : handleModalState("hidden");
+    error ? setModal("error") : setModal("hidden");
+  }, [error]);
+
+  useEffect(() => {
+    newEntry ? setModal("new") : setModal("hidden");
   }, [newEntry]);
 
+  useEffect(() => {
+    showDetails ? setModal("details") : setModal("hidden");
+  }, [showDetails]);
+
+  useEffect(() => {
+    editEntry ? setModal("edit") : setModal("hidden");
+  }, [editEntry]);
+
   const handleEsc = () => {
-    handleModalState("hidden");
-    handleError("");
-    handleNewEntry("");
+    setModal("hidden");
+    setError("");
+    setNewEntry("");
+    setShowDetails("");
+    setEditEntry("");
   };
 
   return (
     <div
       id="searchModal"
-      className={`fixed inset-0 bg-black/50 backdrop-blur-sm ${modalState == "hidden" ? "hidden" : ""} justify-center pt-20 px-4 z-50`}
+      className={`fixed inset-0 bg-black/50 backdrop-blur-sm ${modal == "hidden" ? "hidden" : ""} justify-center pt-20 px-4 z-50`}
     >
-      <div
-        id="modalBox"
-        className="bg-gray w-full max-h-[85vh] flex flex-col rounded-xl shadow-2xl border border-slate-200"
-      >
-        <button
-          type="button"
-          id="modalCloseButton"
-          className="ml-auto text-primary-content hover:text-white text-sm px-4 py-4 bg-brand-purple rounded cursor-pointer hover:bg-brand-dark-hover"
-          onClick={() => handleEsc()}
-        >
-          ESC
-        </button>
+      <div id="modalBox" className="">
         <div
-          className={`flex justify-center p-4 ${modalState == "error" ? "" : "hidden"}`}
+          className={`flex justify-center p-4 ${modal == "error" ? "" : "hidden"}`}
         >
-          {errorMessage && <AlertModal message={errorMessage} />}
+          {error && <AlertModal message={error} escFunction={handleEsc} />}
         </div>
         <div
-          className={`flex justify-center p-4 ${modalState == "new" ? "" : "hidden"}`}
+          className={`flex justify-center p-4 ${modal == "new" ? "" : "hidden"}`}
         >
-          {newEntry && <EntryForm handleAddEntry={handleAddEntry} />}
+          {newEntry && (
+            <EntryForm
+              handleAddEntry={handleAddEntry}
+              escFunction={handleEsc}
+            />
+          )}
+        </div>
+        <div
+          className={`flex justify-center p-4 ${modal == "edit" ? "" : "hidden"}`}
+        >
+          {editEntry && <EntryForm escFunction={handleEsc} />}
+        </div>
+        <div
+          className={`flex justify-center p-4 ${modal == "details" ? "" : "hidden"}`}
+        >
+          {showDetails && (
+            <EntryDetails
+              escFunction={handleEsc}
+              handleEditEntry={handleEditEntry}
+              handleDeleteEntry={handleDeleteEntry}
+            />
+          )}
         </div>
       </div>
     </div>

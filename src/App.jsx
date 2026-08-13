@@ -1,16 +1,16 @@
 import Header from "./components/Header.jsx";
 import EntryList from "./components/EntryList.jsx";
 import Footer from "./components/Footer.jsx";
-import { useEffect, useState } from "react";
-import { addData, readData } from "./utils/storage.js";
+import { use, useEffect } from "react";
+import { addData, deleteData, readData } from "./utils/storage.js";
 import Modal from "./components/Modal.jsx";
+import { StateContext } from "./contexts/StateContext.jsx";
+import { EntriesContext } from "./contexts/EntriesContext.jsx";
 
 const App = () => {
-  const [entries, setEntries] = useState([]);
-  const [modal, setModal] = useState("hidden");
-  const [error, setError] = useState("");
-  const [newEntry, setNewEntry] = useState("");
-  const [editEntry, setEditEntry] = useState("");
+  const { setNewEntry, setError, setShowDetails, setModal, setEditEntry } =
+    use(StateContext);
+  const { setEntries } = use(EntriesContext);
 
   const handleAddEntry = (newEntry) => {
     const wasAdded = addData(newEntry);
@@ -19,25 +19,34 @@ const App = () => {
       setNewEntry("");
     } else {
       setError("Entry already exists.");
-      // window.alert("Entry already exists.");
     }
+  };
+
+  const handleDeleteEntry = (id) => {
+    deleteData(id);
+    const newData = readData();
+    setEntries(newData);
+    setShowDetails("");
+    setModal("hidden");
+  };
+
+  const handleEditEntry = (id) => {
+    setEditEntry(id);
+    setShowDetails("");
+    setModal("edit");
   };
 
   useEffect(() => setEntries(readData()), []);
 
   return (
     <div className="flex flex-col h-screen justify-between bg-base-200">
-      <Header handleNewEntry={setNewEntry} />
+      <Header />
       <Modal
-        errorMessage={error}
-        handleError={setError}
-        newEntry={newEntry}
         handleAddEntry={handleAddEntry}
-        handleNewEntry={setNewEntry}
-        modalState={modal}
-        handleModalState={setModal}
+        handleDeleteEntry={handleDeleteEntry}
+        handleEditEntry={handleEditEntry}
       />
-      <EntryList entries={entries} handleAddEntry={handleAddEntry} />
+      <EntryList />
       <Footer />
     </div>
   );
