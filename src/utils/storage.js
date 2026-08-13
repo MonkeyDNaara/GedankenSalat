@@ -54,6 +54,7 @@ const updateData = (item) => {
     entry.id === item.id ? item : entry,
   );
   writeData(updatedData);
+  return updatedData;
 };
 
 export { readData, writeData, addData, deleteData, isItemInData, updateData };

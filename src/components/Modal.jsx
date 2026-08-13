@@ -6,7 +6,7 @@ import EntryForm from "./EntryForm";
 import EntryDetails from "./EntryDetails";
 import { StateContext } from ".././contexts/StateContext.jsx";
 
-const Modal = ({ handleAddEntry, handleDeleteEntry }) => {
+const Modal = ({ handleAddEntry, handleDeleteEntry, handleEditEntry }) => {
   const {
     modal,
     setModal,
@@ -16,6 +16,8 @@ const Modal = ({ handleAddEntry, handleDeleteEntry }) => {
     setNewEntry,
     showDetails,
     setShowDetails,
+    editEntry,
+    setEditEntry,
   } = use(StateContext);
 
   useEffect(() => {
@@ -30,11 +32,16 @@ const Modal = ({ handleAddEntry, handleDeleteEntry }) => {
     showDetails ? setModal("details") : setModal("hidden");
   }, [showDetails]);
 
+  useEffect(() => {
+    editEntry ? setModal("edit") : setModal("hidden");
+  }, [editEntry]);
+
   const handleEsc = () => {
     setModal("hidden");
     setError("");
     setNewEntry("");
     setShowDetails("");
+    setEditEntry("");
   };
 
   return (
@@ -59,11 +66,17 @@ const Modal = ({ handleAddEntry, handleDeleteEntry }) => {
           )}
         </div>
         <div
+          className={`flex justify-center p-4 ${modal == "edit" ? "" : "hidden"}`}
+        >
+          {editEntry && <EntryForm escFunction={handleEsc} />}
+        </div>
+        <div
           className={`flex justify-center p-4 ${modal == "details" ? "" : "hidden"}`}
         >
           {showDetails && (
             <EntryDetails
               escFunction={handleEsc}
+              handleEditEntry={handleEditEntry}
               handleDeleteEntry={handleDeleteEntry}
             />
           )}

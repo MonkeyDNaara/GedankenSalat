@@ -2,12 +2,12 @@ import { use } from "react";
 import { EntriesContext } from ".././contexts/EntriesContext.jsx";
 import { StateContext } from ".././contexts/StateContext.jsx";
 
-const EntryDetails = ({ escFunction, handleDeleteEntry }) => {
+const EntryDetails = ({ escFunction, handleDeleteEntry, handleEditEntry }) => {
   const { entries } = use(EntriesContext);
   const { showDetails } = use(StateContext);
   const entriesFilter = entries.filter((entry) => entry.id == showDetails);
   const [entry] = entriesFilter;
-  const { title, date, imgUrl, content } = entry;
+  const { title, date, imgUrl, content, id } = entry;
 
   return (
     <div
@@ -34,7 +34,14 @@ const EntryDetails = ({ escFunction, handleDeleteEntry }) => {
       </figure>
       <p className="card-body m-2">{content}</p>
       <div className="flex align-center justify-evenly mx-2 mt-2 mb-4">
-        <button className="card card-actions btn btn-primary">Edit</button>
+        <button
+          className="card card-actions btn btn-primary"
+          onClick={() => {
+            handleEditEntry(id);
+          }}
+        >
+          Edit
+        </button>
         <button
           className="card card-actions btn btn-secondary"
           onClick={() => {

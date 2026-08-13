@@ -8,7 +8,8 @@ import { StateContext } from "./contexts/StateContext.jsx";
 import { EntriesContext } from "./contexts/EntriesContext.jsx";
 
 const App = () => {
-  const { setNewEntry, setError, setShowDetails, setModal } = use(StateContext);
+  const { setNewEntry, setError, setShowDetails, setModal, setEditEntry } =
+    use(StateContext);
   const { setEntries } = use(EntriesContext);
 
   const handleAddEntry = (newEntry) => {
@@ -29,6 +30,12 @@ const App = () => {
     setModal("hidden");
   };
 
+  const handleEditEntry = (id) => {
+    setEditEntry(id);
+    setShowDetails("");
+    setModal("edit");
+  };
+
   useEffect(() => setEntries(readData()), []);
 
   return (
@@ -37,6 +44,7 @@ const App = () => {
       <Modal
         handleAddEntry={handleAddEntry}
         handleDeleteEntry={handleDeleteEntry}
+        handleEditEntry={handleEditEntry}
       />
       <EntryList />
       <Footer />

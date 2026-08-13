@@ -1,14 +1,38 @@
+import { StateContext } from ".././contexts/StateContext.jsx";
+import { EntriesContext } from ".././contexts/EntriesContext.jsx";
+import { updateData } from ".././utils/storage.js";
+import { use } from "react";
+
 const EntryForm = ({ handleAddEntry, escFunction }) => {
+  const { modal, setModal, editEntry, setEditEntry } = use(StateContext);
+  const { entries, setEntries } = use(EntriesContext);
+  const entriesFilter = entries.filter((entry) => entry.id == editEntry);
+  const [entry] = entriesFilter;
+
   const handleForm = (e) => {
     e.preventDefault();
-    const newEntry = {
-      id: crypto.randomUUID(),
-      title: `${e.target.title.value}`,
-      date: `${e.target.date.value}`,
-      imgUrl: `${e.target.imgUrl.value}`,
-      content: `${e.target.content.value}`,
-    };
-    handleAddEntry(newEntry);
+    if (modal == "new") {
+      const newEntry = {
+        id: crypto.randomUUID(),
+        title: `${e.target.title.value}`,
+        date: `${e.target.date.value}`,
+        imgUrl: `${e.target.imgUrl.value}`,
+        content: `${e.target.content.value}`,
+      };
+      handleAddEntry(newEntry);
+    } else if (modal == "edit") {
+      const editEntry = {
+        id: entry.id,
+        title: `${e.target.title.value}`,
+        date: `${e.target.date.value}`,
+        imgUrl: `${e.target.imgUrl.value}`,
+        content: `${e.target.content.value}`,
+      };
+      const updatedData = updateData(editEntry);
+      setEntries(updatedData);
+      setModal("hidden");
+      setEditEntry("");
+    }
   };
   return (
     <div>
@@ -35,6 +59,7 @@ const EntryForm = ({ handleAddEntry, escFunction }) => {
               id="title"
               placeholder="title of todays entry"
               className="input input-primary"
+              defaultValue={modal == "new" ? "" : entry.title}
             />
           </div>
           <div className="pb-2">
@@ -47,6 +72,7 @@ const EntryForm = ({ handleAddEntry, escFunction }) => {
               id="date"
               placeholder="tt.mm.jjjj"
               className="input input-primary"
+              defaultValue={modal == "new" ? "" : entry.date}
             />
           </div>
           <div className="pb-2">
@@ -77,6 +103,7 @@ const EntryForm = ({ handleAddEntry, escFunction }) => {
                 pattern="^(https?://)?([a-zA-Z0-9]([a-zA-Z0-9\-].*[a-zA-Z0-9])?\.)+[a-zA-Z].*$"
                 name="imgUrl"
                 id="imgUrl"
+                defaultValue={modal == "new" ? "" : entry.imgUrl}
               />
             </label>
           </div>
@@ -89,6 +116,7 @@ const EntryForm = ({ handleAddEntry, escFunction }) => {
               id="content"
               placeholder="What's up today?"
               className="textarea textarea-primary"
+              defaultValue={modal == "new" ? "" : entry.content}
             ></textarea>
           </div>
           <button type="submit" className="btn btn-primary btn-outline">
