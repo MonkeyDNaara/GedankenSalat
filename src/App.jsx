@@ -9,7 +9,7 @@ import { EntriesContext } from "./contexts/EntriesContext.jsx";
 
 const App = () => {
   const { setNewEntry, setError } = use(StateContext);
-  const { entries, setEntries } = use(EntriesContext);
+  const { setEntries } = use(EntriesContext);
 
   const handleAddEntry = (newEntry) => {
     const wasAdded = addData(newEntry);

@@ -1,18 +1,28 @@
-const EntryDetails = ({ entry, escFunction }) => {
+import { use } from "react";
+import { EntriesContext } from ".././contexts/EntriesContext.jsx";
+import { StateContext } from ".././contexts/StateContext.jsx";
+
+const EntryDetails = ({ escFunction }) => {
+  const { entries } = use(EntriesContext);
+  const { showDetails } = use(StateContext);
+  const entriesFilter = entries.filter((entry) => entry.id == showDetails);
+  const [entry] = entriesFilter;
   const { title, date, imgUrl, content } = entry;
 
   return (
-    <div className="card bg-base-100 w-100 shadow-md shadow-black m-4 hover:scale-102 cursor-pointer">
-      <div className="card card-body flex justify-between">
-        <div>
-          <h2 className="card">{title}</h2>
-          <div>{date}</div>
+    <div
+      className={`card bg-base-300 w-100 flex justify-between shadow-md shadow-black m-4 ${showDetails ? "" : "hover:scale-102 cursor-pointer"} `}
+    >
+      <div className="flex justify-between align-text-top m-2">
+        <div className="m-2 ">
+          <h2 className="card-title ">{title}</h2>
+          <p className=" m-2">{date}</p>
         </div>
-        <div>
+        <div className="m-2">
           <button
             type="button"
             id="modalCloseButton"
-            className="ml-auto text-primary-content hover:text-white text-sm px-4 py-4 rounded cursor-pointer hover:bg-brand-dark-hover"
+            className="ml-auto hover:text-white text-sm pr-2 rounded cursor-pointer hover:bg-brand-dark-hover"
             onClick={() => escFunction()}
           >
             X
@@ -20,12 +30,10 @@ const EntryDetails = ({ entry, escFunction }) => {
         </div>
       </div>
       <figure>
-        <img src={imgUrl} alt="random picture" className="w-80 h-80" />
+        <img src={imgUrl} alt="random picture" className="w-90 h-50" />
       </figure>
-      <p className="card card-body text-primary-content text-md m-2">
-        {content}
-      </p>
-      <div>
+      <p className="card-body">{content}</p>
+      <div className="flex align-center justify-evenly mx-2 mt-2 mb-4">
         <button className="card card-actions btn btn-primary">Edit</button>
         <button className="card card-actions btn btn-secondary">Delete</button>
       </div>

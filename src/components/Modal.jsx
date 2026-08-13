@@ -61,9 +61,7 @@ const Modal = ({ handleAddEntry, entry }) => {
         <div
           className={`flex justify-center p-4 ${modal == "details" ? "" : "hidden"}`}
         >
-          {showDetails && (
-            <EntryDetails entry={entry} escFunction={handleEsc} />
-          )}
+          {showDetails && <EntryDetails escFunction={handleEsc} />}
         </div>
       </div>
     </div>
