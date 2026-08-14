@@ -21,10 +21,6 @@ const Modal = ({ handleAddEntry, handleDeleteEntry, handleEditEntry }) => {
   } = use(StateContext);
 
   useEffect(() => {
-    error ? setModal("error") : setModal("hidden");
-  }, [error]);
-
-  useEffect(() => {
     newEntry ? setModal("new") : setModal("hidden");
   }, [newEntry]);
 
@@ -35,6 +31,10 @@ const Modal = ({ handleAddEntry, handleDeleteEntry, handleEditEntry }) => {
   useEffect(() => {
     editEntry ? setModal("edit") : setModal("hidden");
   }, [editEntry]);
+
+  useEffect(() => {
+    error ? setModal("error") : setModal("hidden");
+  }, [error]);
 
   const handleEsc = () => {
     setModal("hidden");

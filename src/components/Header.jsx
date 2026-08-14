@@ -13,7 +13,6 @@ const Header = () => {
 
   const handleTheme = () => {
     theme == "gedankensalat" ? setTheme("forest") : setTheme("gedankensalat");
-    console.log(theme);
   };
 
   return (

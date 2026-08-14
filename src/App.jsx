@@ -17,10 +17,11 @@ const App = () => {
   const handleAddEntry = (newEntry) => {
     const wasAdded = addData(newEntry);
     if (wasAdded) {
-      setEntries((prev) => [...prev, newEntry]);
+      setEntries(readData());
       setNewEntry("");
     } else {
       setError("Entry already exists.");
+      setNewEntry("");
     }
   };
 
