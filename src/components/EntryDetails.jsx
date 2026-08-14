@@ -11,7 +11,7 @@ const EntryDetails = ({ escFunction, handleDeleteEntry, handleEditEntry }) => {
 
   return (
     <div
-      className={`card bg-base-300 w-100 flex justify-between shadow-md shadow-black m-4 ${showDetails ? "" : "hover:scale-102 cursor-pointer"} `}
+      className={`card bg-base-100 w-100 flex justify-between shadow-md shadow-black m-4 ${showDetails ? "" : "hover:scale-102 cursor-pointer"} `}
     >
       <div className="flex justify-between align-text-top m-2">
         <div className="m-2 ">
@@ -40,7 +40,7 @@ const EntryDetails = ({ escFunction, handleDeleteEntry, handleEditEntry }) => {
             handleEditEntry(id);
           }}
         >
-          Edit
+          ✏️ Edit
         </button>
         <button
           className="card card-actions btn btn-secondary"
@@ -48,7 +48,7 @@ const EntryDetails = ({ escFunction, handleDeleteEntry, handleEditEntry }) => {
             handleDeleteEntry(showDetails);
           }}
         >
-          Delete
+          🗑️ Delete
         </button>
       </div>
     </div>
