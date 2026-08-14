@@ -4,7 +4,7 @@ import { updateData, isItemInData, readData } from ".././utils/storage.js";
 import { use } from "react";
 
 const EntryForm = ({ handleAddEntry, escFunction }) => {
-  const { modal, setError, setModal, editEntry, setEditEntry } =
+  const { modal, setError, setModal, editEntry, setEditEntry, oldEntry } =
     use(StateContext);
   const { entries, setEntries } = use(EntriesContext);
   const entriesFilter = entries.filter((entry) => entry.id == editEntry);
@@ -29,7 +29,7 @@ const EntryForm = ({ handleAddEntry, escFunction }) => {
         imgUrl: `${e.target.imgUrl.value}`,
         content: `${e.target.content.value}`,
       };
-      if (isItemInData(editEntry.date)) {
+      if (isItemInData(editEntry.date) && editEntry.date != oldEntry.date) {
         setError("Entry already exists.");
         console.error("Entry is already in Storage.");
       } else {

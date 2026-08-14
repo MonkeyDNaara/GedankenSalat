@@ -7,6 +7,7 @@ const StateContextProvider = ({ children }) => {
   const [newEntry, setNewEntry] = useState("");
   const [editEntry, setEditEntry] = useState("");
   const [showDetails, setShowDetails] = useState("");
+  const [oldEntry, setOldEntry] = useState("");
 
   return (
     <StateContext
@@ -21,6 +22,8 @@ const StateContextProvider = ({ children }) => {
         setEditEntry,
         showDetails,
         setShowDetails,
+        oldEntry,
+        setOldEntry,
       }}
     >
       {children}
