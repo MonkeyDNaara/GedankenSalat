@@ -4,13 +4,16 @@ import "./index.css";
 import App from "./App.jsx";
 import StateContextProvider from "./contexts/StateContextProvider.jsx";
 import EntriesContextProvider from "./contexts/EntriesContextProvider.jsx";
+import ThemeContextProvider from "./contexts/ThemeContextProvider.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <EntriesContextProvider>
-      <StateContextProvider>
-        <App />
-      </StateContextProvider>
-    </EntriesContextProvider>
+    <ThemeContextProvider>
+      <EntriesContextProvider>
+        <StateContextProvider>
+          <App />
+        </StateContextProvider>
+      </EntriesContextProvider>
+    </ThemeContextProvider>
   </StrictMode>,
 );

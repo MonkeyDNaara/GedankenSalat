@@ -6,11 +6,13 @@ import { addData, deleteData, readData } from "./utils/storage.js";
 import Modal from "./components/Modal.jsx";
 import { StateContext } from "./contexts/StateContext.jsx";
 import { EntriesContext } from "./contexts/EntriesContext.jsx";
+import { ThemeContext } from "./contexts/ThemeContext.jsx";
 
 const App = () => {
   const { setNewEntry, setError, setShowDetails, setModal, setEditEntry } =
     use(StateContext);
   const { setEntries } = use(EntriesContext);
+  const { theme } = use(ThemeContext);
 
   const handleAddEntry = (newEntry) => {
     const wasAdded = addData(newEntry);
@@ -39,7 +41,10 @@ const App = () => {
   useEffect(() => setEntries(readData()), []);
 
   return (
-    <div className="flex flex-col h-screen justify-between bg-base-200">
+    <div
+      data-theme={theme}
+      className="flex flex-col h-screen justify-between bg-base-200"
+    >
       <Header />
       <Modal
         handleAddEntry={handleAddEntry}
