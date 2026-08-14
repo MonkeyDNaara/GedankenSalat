@@ -57,6 +57,7 @@ const EntryForm = ({ handleAddEntry, escFunction }) => {
               type="text"
               name="title"
               id="title"
+              required
               placeholder="title of todays entry"
               className="input input-primary"
               defaultValue={modal == "new" ? "" : entry.title}
@@ -70,6 +71,7 @@ const EntryForm = ({ handleAddEntry, escFunction }) => {
               type="date"
               name="date"
               id="date"
+              required
               placeholder="tt.mm.jjjj"
               className="input input-primary"
               defaultValue={modal == "new" ? "" : entry.date}
@@ -114,6 +116,7 @@ const EntryForm = ({ handleAddEntry, escFunction }) => {
             <textarea
               name="content"
               id="content"
+              required
               placeholder="What's up today?"
               className="textarea textarea-primary"
               defaultValue={modal == "new" ? "" : entry.content}

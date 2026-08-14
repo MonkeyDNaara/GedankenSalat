@@ -11,7 +11,7 @@ import { ThemeContext } from "./contexts/ThemeContext.jsx";
 const App = () => {
   const { setNewEntry, setError, setShowDetails, setModal, setEditEntry } =
     use(StateContext);
-  const { setEntries } = use(EntriesContext);
+  const { entries, setEntries } = use(EntriesContext);
   const { theme } = use(ThemeContext);
 
   const handleAddEntry = (newEntry) => {
@@ -21,6 +21,7 @@ const App = () => {
       setNewEntry("");
     } else {
       setError("Entry already exists.");
+      setNewEntry("");
     }
   };
 
@@ -38,7 +39,7 @@ const App = () => {
     setModal("edit");
   };
 
-  useEffect(() => setEntries(readData()), []);
+  useEffect(() => setEntries(readData()));
 
   return (
     <div

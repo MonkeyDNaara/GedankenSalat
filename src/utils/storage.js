@@ -34,6 +34,7 @@ const addData = (item) => {
   if (!isItemInData(item.date)) {
     const data = readData();
     data.push(item);
+    data.sort(compareDate);
     writeData(data);
     return true;
   } else {
