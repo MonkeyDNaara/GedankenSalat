@@ -9,8 +9,14 @@ import { EntriesContext } from "./contexts/EntriesContext.jsx";
 import { ThemeContext } from "./contexts/ThemeContext.jsx";
 
 const App = () => {
-  const { setNewEntry, setError, setShowDetails, setModal, setEditEntry } =
-    use(StateContext);
+  const {
+    setNewEntry,
+    setError,
+    setShowDetails,
+    setModal,
+    setEditEntry,
+    setOldEntry,
+  } = use(StateContext);
   const { setEntries } = use(EntriesContext);
   const { theme } = use(ThemeContext);
 
@@ -34,6 +40,9 @@ const App = () => {
   };
 
   const handleEditEntry = (id) => {
+    const data = readData();
+    const [oldEntry] = data.filter((item) => item.id == id);
+    setOldEntry(oldEntry);
     setEditEntry(id);
     setShowDetails("");
     setModal("edit");
