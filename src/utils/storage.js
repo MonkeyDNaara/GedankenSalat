@@ -54,6 +54,7 @@ const updateData = (item) => {
   const updatedData = data.map((entry) =>
     entry.id === item.id ? item : entry,
   );
+  updatedData.sort(compareDate);
   writeData(updatedData);
   return updatedData;
 };

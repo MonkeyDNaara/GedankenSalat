@@ -1,10 +1,11 @@
 import { StateContext } from ".././contexts/StateContext.jsx";
 import { EntriesContext } from ".././contexts/EntriesContext.jsx";
-import { updateData } from ".././utils/storage.js";
+import { updateData, isItemInData, readData } from ".././utils/storage.js";
 import { use } from "react";
 
 const EntryForm = ({ handleAddEntry, escFunction }) => {
-  const { modal, setModal, editEntry, setEditEntry } = use(StateContext);
+  const { modal, setError, setModal, editEntry, setEditEntry } =
+    use(StateContext);
   const { entries, setEntries } = use(EntriesContext);
   const entriesFilter = entries.filter((entry) => entry.id == editEntry);
   const [entry] = entriesFilter;
@@ -28,9 +29,14 @@ const EntryForm = ({ handleAddEntry, escFunction }) => {
         imgUrl: `${e.target.imgUrl.value}`,
         content: `${e.target.content.value}`,
       };
-      const updatedData = updateData(editEntry);
-      setEntries(updatedData);
-      setModal("hidden");
+      if (isItemInData(editEntry.date)) {
+        setError("Entry already exists.");
+        console.error("Entry is already in Storage.");
+      } else {
+        updateData(editEntry);
+        setEntries(readData());
+        setModal("hidden");
+      }
       setEditEntry("");
     }
   };

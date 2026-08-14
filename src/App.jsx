@@ -11,13 +11,13 @@ import { ThemeContext } from "./contexts/ThemeContext.jsx";
 const App = () => {
   const { setNewEntry, setError, setShowDetails, setModal, setEditEntry } =
     use(StateContext);
-  const { entries, setEntries } = use(EntriesContext);
+  const { setEntries } = use(EntriesContext);
   const { theme } = use(ThemeContext);
 
   const handleAddEntry = (newEntry) => {
     const wasAdded = addData(newEntry);
     if (wasAdded) {
-      setEntries((prev) => [...prev, newEntry]);
+      setEntries(readData());
       setNewEntry("");
     } else {
       setError("Entry already exists.");
@@ -39,7 +39,7 @@ const App = () => {
     setModal("edit");
   };
 
-  useEffect(() => setEntries(readData()));
+  useEffect(() => setEntries(readData()), []);
 
   return (
     <div
